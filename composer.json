@@ -1,5 +1,20 @@
 {
+    "name": "enishant/domain-for-sale",
+    "type": "project",
+    "description": "This is ready to use template to quickly start selling domain with minimum setup.",
+    "version": "1.0.0",
+    "homepage": "https://github.com/enishant/domain-for-sale",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nishant Vaity",
+            "email": "enishant@gmail.com",
+            "homepage": "https://www.nishantvaity.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "phpmailer/phpmailer": "^6.6"
-    }
+    },
+    "keywords": ["sitemap", "website", "domain", "leads", "robots-txt", "seo-optimization", "sitemap-xml", "website-template", "lead-generator", "lead-generation", "seo-friendly", "seo-ready", "simple-website", "sell-domain", "lead-gathering"]
 }
