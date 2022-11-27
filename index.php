@@ -28,6 +28,26 @@ $smtp_auth       = true;
 $smtp_encryption = 'tls'; // tls | ssl
 $smtp_port       = 587;
 
+$description = 'Domain ' . $domain . ' is now available for sale. Buy now with best offered price.';
+$keywords = array(
+                $domain,
+                'domain ' . $domain . ' for sale',
+                'domain',
+                'domain name',
+                'Buy domain',
+                'domain parking',
+                'register domain',
+                'new domain name',
+                'domains for sale',
+                'premium domains',
+                'website',
+                'transfer domain',
+                'buy website',
+                'domain auction',
+                'marketplace',
+                'domain brokerage',
+            );
+
 if($force_https === true && $_SERVER['REQUEST_SCHEME'] === 'http') {
     header('Location: https://' . $domain);
     exit;
@@ -39,22 +59,30 @@ if($force_https === true && $_SERVER['REQUEST_SCHEME'] === 'http') {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="index, follow">
-	<meta name="description" content="Domain <?php echo $domain; ?> for sale, buy domains <?php echo $domain; ?>">
-	<meta name="keywords" content="Buy domain,domain parking, domain name, domain, domain <?php echo $domain; ?> for sale, <?php echo $domain; ?>, register domain, new domain name, domains for sale, premium domains, website, transfer domain, buy website, domain auction, marketplace, domain brokerage" />
+	<meta name="description" content="<?php echo $description; ?>">
+	<meta name="keywords" content="<?php echo implode(',',$keywords); ?>">
 	<title>Domain <?php echo $domain; ?> for sale</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Be+Vietnam+Pro:wght@200&family=Georama&family=Passions+Conflict&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload = null">
-	<style type="text/css">
+	<link rel="dns-prefetch" href="https://www.googletagmanager.com/gtag/js?id=<?php echo $gtag; ?>">
+	<link href="https://fonts.googleapis.com/css2?family=Anton&family=Be+Vietnam+Pro:wght@200&family=Georama&family=Passions+Conflict&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload = null; this.defer = true;">
+	<style>
 		body {
 			background: #844;
 		}
 
+        h1 {
+            color: #fff;
+            text-align: center;
+            font-size: 4rem;
+            font-weight: 700;
+            font-family: 'Georama', sans-serif;
+        }
 		.domain-for-sale {
 			font-family: 'Passions Conflict', cursive;
 			font-weight: 400;
 			font-size: 5rem;
-			color: #ccc;
+			color: #fff;
 			text-align: center;
 		}
 		
@@ -62,7 +90,7 @@ if($force_https === true && $_SERVER['REQUEST_SCHEME'] === 'http') {
 			font-family: 'Anton', sans-serif;
 			font-weight: 400;
 			font-size: 4.5rem;
-			color: #ccc;
+			color: #fff;
 			text-align: center;
 		}
 
@@ -70,7 +98,7 @@ if($force_https === true && $_SERVER['REQUEST_SCHEME'] === 'http') {
 			font-family: 'Georama', sans-serif;
 			font-weight: 400;
 			font-size: 2rem;
-			color: #ccc;
+			color: #fff;
 			text-align: center;
 		}
 
@@ -139,15 +167,25 @@ if($force_https === true && $_SERVER['REQUEST_SCHEME'] === 'http') {
 			margin: 15px auto;
 			color: #fff;
 		}
+		
+		.keywords {
+		    color: #fff;
+		    font-size:1rem;
+		    font-weight:700;
+		}
 	</style>
     <?php if(isset($gtag) === true && empty($gtag) === false) { ?>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $gtag; ?>"></script>
+        <script src="https://www.googletagmanager.com/gtag/js?id=<?php echo $gtag; ?>" async></script>
         <script>
+        setTimeout(function(){
           window.dataLayer = window.dataLayer || [];
+          
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
           gtag('config', '<?php echo $gtag; ?>');
+          
+        },5000);
         </script>
     <?php } ?>
 </head>
@@ -212,6 +250,7 @@ if($maintenance === true) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 } else { ?>
+    <h1><?php echo $description ?></h1>
 	<div class="domain-for-sale">Domain for Sale</div>
 	<div class="domain-name"><?php echo $domain; ?></div>
 	<div class="make-an-offer">
@@ -231,7 +270,8 @@ if($maintenance === true) {
 			</div>
 		</form>
 	</div>
-	<script type="text/javascript">
+	<div class="keywords"><?php echo strtoupper( implode(' | ',$keywords) );  ?></div>
+	<script>
 		function validateForm() {
 		  let name = document.getElementById('offer-name').value;
 		  let contact = document.getElementById('offer-contact').value;
